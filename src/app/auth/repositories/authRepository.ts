@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import { prismaClient } from '../../../lib/prismaClient';
 
-class AuthRository {
+class AuthRepository {
   async findUserByEmail(email: string): Promise<User | null> {
     return prismaClient.user.findUnique({
       where: {
@@ -26,4 +26,4 @@ class AuthRository {
   }
 }
 
-export const authRepository = new AuthRository();
+export const authRepository = new AuthRepository();
