@@ -3,7 +3,7 @@ import { authService } from '../services/authService';
 import { hash } from 'bcryptjs';
 
 class AuthController {
-  signUp = async (req: Request, res: Response) => {
+  async signUp(req: Request, res: Response) {
     try {
       const { name, email, password } = req.body;
 
@@ -15,14 +15,14 @@ class AuthController {
         id: newUser.id,
         name: newUser.name,
         email: newUser.email,
-        password: newUser.password,
+        // password: newUser.password, senha hasheada
       });
     } catch (error: any) {
       res.status(400).send(error.message);
     }
-  };
+  }
 
-  signIn = async (req: Request, res: Response) => {
+  async signIn(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
 
@@ -36,7 +36,19 @@ class AuthController {
     } catch (error: any) {
       res.status(400).send(error.message);
     }
-  };
+  }
+
+  async signOut(req: Request, res: Response) {
+    try {
+      const { email } = req.body;
+
+      await authService.signout(email);
+
+      res.status(200).send('Usuário deletado');
+    } catch (error: any) {
+      res.status(400).send(error.message);
+    }
+  }
 }
 
 export const authController = new AuthController();

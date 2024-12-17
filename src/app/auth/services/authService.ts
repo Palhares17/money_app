@@ -39,6 +39,16 @@ class AuthService {
 
     return { user, accessToken };
   }
+
+  async signout(email: string) {
+    const user = await authRepository.findUserByEmail(email);
+
+    if (!user) {
+      throw new Error('Usuário não encontrado');
+    }
+
+    await authRepository.deleteUser(email);
+  }
 }
 
 export const authService = new AuthService();

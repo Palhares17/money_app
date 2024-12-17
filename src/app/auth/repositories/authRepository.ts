@@ -24,6 +24,14 @@ class AuthRepository {
       },
     });
   }
+
+  async deleteUser(email: string): Promise<User> {
+    return prismaClient.user.delete({
+      where: {
+        email,
+      },
+    });
+  }
 }
 
 export const authRepository = new AuthRepository();

@@ -7,7 +7,7 @@ class UserController {
 
     const user = await userRepository.findUserById(id);
 
-    res.status(200).json({ name });
+    res.status(200).json(user);
   };
 }
 
